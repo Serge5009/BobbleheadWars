@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 50.0f;
+
     //public LayerMask layerMask;
     //public Rigidbody head;
 
@@ -20,16 +21,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.position;
-
-        pos.x += moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-        pos.z += moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-
-        transform.position = pos;
-        /*
         Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"),
-        0, Input.GetAxis("Vertical"));
-        characterController.SimpleMove(moveDirection * moveSpeed);*/
+         0, Input.GetAxis("Vertical"));
+        characterController.SimpleMove(moveDirection * moveSpeed);
     }
     void FixedUpdate()
     {
