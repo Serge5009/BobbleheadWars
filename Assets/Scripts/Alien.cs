@@ -36,7 +36,8 @@ public class Alien : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
+        Destroy(gameObject);    //  the game is over for this buddy
     }
 
 }

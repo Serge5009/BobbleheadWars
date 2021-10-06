@@ -8,13 +8,13 @@ public class Gun : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform launchPosition;
 
-    // Start is called before the first frame update
+    private AudioSource audioSource;
+
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -31,12 +31,12 @@ public class Gun : MonoBehaviour
     }
     void fireBullet()
     {
-        // 1
         GameObject bullet = Instantiate(bulletPrefab) as GameObject;
-        // 2
         bullet.transform.position = launchPosition.position;
-        // 3
         bullet.GetComponent<Rigidbody>().velocity =
         transform.parent.forward * 100;
+
+        //  playing sound
+        audioSource.PlayOneShot(SoundManager.Instance.gunFire);
     }
 }
