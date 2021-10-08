@@ -17,6 +17,9 @@ public class Alien : MonoBehaviour
     public float navigationUpdate;
     private float navigationTime = 0;
 
+    public Rigidbody head;
+    public bool isAlive = true;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -25,33 +28,48 @@ public class Alien : MonoBehaviour
 
     void Update()
     {
-        navigationTime += Time.deltaTime;
-        if (navigationTime > navigationUpdate)
+        if (isAlive)
         {
-            agent.destination = target.position;
-            navigationTime = 0;
-        }
+            navigationTime += Time.deltaTime;
+            if (navigationTime > navigationUpdate)
+            {
+                agent.destination = target.position;
+                navigationTime = 0;
+            }
 
-        //  Console error fix
-        if (target != null)
-        {
-            agent.destination = target.position;
+            //  Console error fix
+            if (target != null)
+            {
+                agent.destination = target.position;
+            }
         }
     }
 
     public void Die()
     {
+        isAlive = false;
+        head.GetComponent<Animator>().enabled = false;
+        head.isKinematic = false;
+        head.useGravity = true;
+        head.GetComponent<SphereCollider>().enabled = true;
+        head.gameObject.transform.parent = null;
+        head.velocity = new Vector3(0, 26.0f, 3.0f);
+
         OnDestroy.Invoke();
         OnDestroy.RemoveAllListeners();
-
-        // All death actions ABOVE this line
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
+        head.GetComponent<SelfDestruct>().Initiate();
         Destroy(gameObject);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
-        Die();        //  the game is over for this buddy
+        if (isAlive)
+        {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
+
+            Die();  // F
+        }
     }
 
 }
