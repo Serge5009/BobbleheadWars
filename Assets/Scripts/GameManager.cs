@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject[] spawnPoints;
     public GameObject alien;
+    public GameObject upgradePrefab;
+    public Gun gun;
+    public float upgradeMaxTimeSpawn = 7.5f;
 
     //  Settings
     public int maxAliensOnScreen;
@@ -20,10 +23,15 @@ public class GameManager : MonoBehaviour
     private int aliensOnScreen = 0;
     private float generatedSpawnTime = 0;
     private float currentSpawnTime = 0;
+    private bool spawnedUpgrade = false;
+    private float actualUpgradeTime = 0;
+    private float currentUpgradeTime = 0;
+
 
     void Start()
     {
-
+        actualUpgradeTime = Random.Range(upgradeMaxTimeSpawn - 3.0f, upgradeMaxTimeSpawn);
+        actualUpgradeTime = Mathf.Abs(actualUpgradeTime);
     }
 
     void Update()
@@ -66,6 +74,27 @@ public class GameManager : MonoBehaviour
                         newAlien.transform.LookAt(targetRotation);
                     }
                 }
+            }
+        }
+
+        currentUpgradeTime += Time.deltaTime;
+        if (currentUpgradeTime > actualUpgradeTime)
+        {
+            if (!spawnedUpgrade)
+            {
+
+                int randomNumber = Random.Range(0, spawnPoints.Length - 1);
+                GameObject spawnLocation = spawnPoints[randomNumber];
+               
+                GameObject upgrade = Instantiate(upgradePrefab) as GameObject;
+                Upgrade upgradeScript = upgrade.GetComponent<Upgrade>();
+                upgradeScript.gun = gun;
+                upgrade.transform.position = spawnLocation.transform.position;
+                
+                spawnedUpgrade = true;
+                //sound
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpAppear);
+
             }
         }
     }

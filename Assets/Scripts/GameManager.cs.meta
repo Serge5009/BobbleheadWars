@@ -3,7 +3,11 @@ guid: 1c7dc04f489774945baf6cae56940e32
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {instanceID: 0}
+  - alien: {instanceID: 0}
+  - upgradePrefab: {instanceID: 0}
+  - gun: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
