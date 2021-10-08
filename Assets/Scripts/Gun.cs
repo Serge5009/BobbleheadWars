@@ -33,6 +33,13 @@ public class Gun : MonoBehaviour
         {
             CancelInvoke("fireBullet");
         }
+
+        // timer
+        currentTime += Time.deltaTime;
+        if (currentTime > upgradeTime && isUpgraded == true)
+        {
+            isUpgraded = false;
+        }
     }
 
     void fireBullet()
