@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+
 
 
 public class Alien : MonoBehaviour
 {
+    public UnityEvent OnDestroy;
+
+
     public Transform target;
     private NavMeshAgent agent;
 
@@ -34,10 +39,18 @@ public class Alien : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        OnDestroy.Invoke();
+
+        // All death actions ABOVE this line
+        Destroy(gameObject);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
-        Destroy(gameObject);    //  the game is over for this buddy
+        Die();        //  the game is over for this buddy
     }
 
 }
