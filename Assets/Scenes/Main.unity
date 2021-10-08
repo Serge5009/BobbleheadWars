@@ -1194,6 +1194,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &692970981
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692970976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.08
+  m_Height: 0.24
+  m_Direction: 1
+  m_Center: {x: -1.61, y: 3.58, z: 0}
 --- !u!1001 &863308843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1635,6 +1649,7 @@ MonoBehaviour:
   - 0.2
   - 0.3
   timeBetweenHits: 2.5
+  marineBody: {fileID: 692970978}
 --- !u!1 &1254272483 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6190327463289526550, guid: 1c7693c52616e2349915713019a9c09e,

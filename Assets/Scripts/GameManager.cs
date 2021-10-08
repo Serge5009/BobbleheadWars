@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
+
         currentSpawnTime += Time.deltaTime;
         if (currentSpawnTime > generatedSpawnTime)
         {
