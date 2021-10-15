@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody head;          //  reference to head
     public Animator bodyAnimator;   //  reference to body animator component
+    private DeathParticles deathParticles;  //    to death particles
+
 
     public float[] hitForce;
     public float timeBetweenHits = 2.5f;
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        deathParticles = gameObject.GetComponentInChildren<DeathParticles>();
+
     }
 
     // Update is called once per frame
@@ -105,6 +109,10 @@ public class PlayerController : MonoBehaviour
                 isHit = true; // 4
                 SoundManager.Instance.PlayOneShot(SoundManager.Instance.hurt);
             }
+
+            deathParticles.Activate();
+
+            //  All death actions go before this line
             alien.Die();
         }
     }

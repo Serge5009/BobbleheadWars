@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject upgradePrefab;
     public Gun gun;
     public float upgradeMaxTimeSpawn = 7.5f;
+    public GameObject deathFloor;
+
 
     //  Settings
     public int maxAliensOnScreen;
@@ -80,6 +82,9 @@ public class GameManager : MonoBehaviour
                         newAlien.transform.LookAt(targetRotation);
 
                         alienScript.OnDestroy.AddListener(AlienDestroyed);
+
+                        alienScript.GetDeathParticles().SetDeathFloor(deathFloor);
+
 
                     }
                 }
