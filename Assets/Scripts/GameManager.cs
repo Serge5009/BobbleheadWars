@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public Gun gun;
     public float upgradeMaxTimeSpawn = 7.5f;
     public GameObject deathFloor;
-
+    public Animator arenaAnimator;
 
     //  Settings
     public int maxAliensOnScreen;
@@ -119,5 +119,16 @@ public class GameManager : MonoBehaviour
     {
         aliensOnScreen -= 1;
         totalAliens -= 1;
+        if (totalAliens == 0)
+        {
+            Invoke("endGame", 2.0f);
+        }
+    }
+
+    private void endGame()
+    {
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.
+        elevatorArrived);
+        arenaAnimator.SetTrigger("PlayerWon");
     }
 }
